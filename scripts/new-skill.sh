@@ -7,7 +7,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="${1:-}"
 
 if [[ -z "$NAME" ]]; then
-  echo "Usage: $0 <skill-name>   (lowercase letters, numbers, hyphens)" >&2
+  echo "Usage: ./scripts/new-skill.sh <skill-name>   (lowercase letters, numbers, hyphens)" >&2
   exit 1
 fi
 if [[ ! "$NAME" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || (( ${#NAME} > 64 )); then
@@ -17,7 +17,7 @@ fi
 
 DIR="$ROOT/skills/$NAME"
 if [[ -e "$DIR" ]]; then
-  echo "Error: $DIR already exists." >&2
+  echo "Error: skills/$NAME already exists." >&2
   exit 1
 fi
 

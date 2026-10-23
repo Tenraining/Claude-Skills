@@ -21,7 +21,17 @@ for dir in "$ROOT"/skills/*/; do
 
   front="$(awk 'NR==1{next} /^---$/{exit} {print}' "$file")"
   name="$(echo "$front" | sed -n 's/^name:[[:space:]]*//p' | head -n1)"
-  desc="$(echo "$front" | sed -n 's/^description:[[:space:]]*//p' | head -n1)"
+  # Handles one-line descriptions and YAML block ones (`description: >` or `|`) whose text is on indented lines.
+  desc="$(echo "$front" | awk '
+    /^description:/ {
+      sub(/^description:[[:space:]]*/, "")
+      if ($0 ~ /^[>|][-+]?[[:space:]]*$/) { block = 1; next }
+      print; exit
+    }
+    block && /^[[:space:]]+/ { sub(/^[[:space:]]+/, ""); out = out (out ? " " : "") $0; next }
+    block { exit }
+    END { if (block) print out }
+  ')"
 
   if [[ -z "$name" ]]; then
     echo "✗ $skill: missing 'name'"; ((errors++))

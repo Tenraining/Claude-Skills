@@ -56,7 +56,8 @@ These skills are included unchanged except where noted, under their original lic
 ./scripts/package.sh              # all skills
 ./scripts/package.sh my-new-skill # just one
 
-# Symlink skills into Claude Code (~/.claude/skills) so edits apply immediately
+# Link skills into Claude Code (~/.claude/skills) so edits apply immediately
+# (symlinks on macOS/Linux, directory junctions on Windows, so no admin rights are needed)
 ./scripts/link-claude-code.sh
 ```
 
