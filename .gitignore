@@ -1,0 +1,24 @@
+# Build output from scripts/package.sh
+dist/
+*.zip
+
+# Dependencies
+node_modules/
+
+# Local env and secrets
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
